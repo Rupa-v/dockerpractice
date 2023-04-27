@@ -1,0 +1,30 @@
+---
+version: "3.9"
+services:
+  nop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - nop-net
+    ports:
+      - "32000:5000"
+    depends_on:
+      - nop-db
+
+  nop-db:
+    image: mysql:8
+    networks:
+      - nop-net
+    volumes:
+      - nop-db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rupa@123
+      - MYSQL_USER=nop
+      - MYSQL_PASSWORD=rupa@123
+      - MYSQL_DATABASE=nop
+volumes:
+  nop-db:
+networks:
+  nop-net:
+
